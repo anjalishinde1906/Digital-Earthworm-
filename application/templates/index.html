@@ -1,0 +1,45 @@
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <form action = "{{ url_for('hello_world') }}" method="POST">
+            <label>N : </label>
+            <input type="Number" min=0 max=150 name='N'><br>
+            <label>P : </label>
+            <input type="Number" min=0 max=150 name='P'><br>
+            <label>K : </label>
+            <input type="Number" min=0 max=210 name='K'><br>
+            <label>Temperature : </label>
+            <input type="Number" min=5 max=50 name='Temperature'><br>
+            <label>Humidity : </label>
+            <input type="Number" min=10 max=100 name='Humidity'><br>
+            <label>PH : </label>
+            <input type="Number" min=0 max=10 name='PH'><br>
+            <label>Rainfall : </label>
+            <input type="Number" min=10 max=300 name='Rainfall'><br>
+            <input type="submit">
+        </form>
+        {% if content %}
+        <p>
+            Model Suggession : {{ content['label'] }}<br>
+        </p>
+        <table>
+            <tr>
+                <th> Crop Name </th>
+                <th> Predicted Probability </th>
+            </tr>
+            {% for i, j in content['probability'].items() %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ j }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p>
+            {{ url_for('static', filename=content['plot_path']) }}
+        </p>
+        <img src="{{ url_for('static', filename=content['plot_path']) }}">
+        {% endif %}
+    </body>
+</html>
